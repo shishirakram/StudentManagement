@@ -10,19 +10,20 @@ using StudentManagement.DataModel;
 namespace StudentManagement.Controllers
 {
     // List<Student> Students = new List<Student>();
+   
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
-        List<Student> Students = HelperFunctions.createStudents();
 
 
          // GET: api/<controller>
          [HttpGet]
         public IEnumerable<Student> GetAllStudents()
         {
+             HelperFunctions.createStudents();
             List<Student> Student = null;
 
-            Student = Students.Select(s => new Student()
+            Student = HelperFunctions.Students.Select(s => new Student()
                         {
                             Id = s.Id,
                             Name = s.Name,
@@ -38,7 +39,7 @@ namespace StudentManagement.Controllers
         public Student GetStudentsById(int id)
         {
             Student std = null;
-            std = Students.Where(s => s.Id == id)
+            std = HelperFunctions.Students.Where(s => s.Id == id)
                     .Select(s => new Student()
             {
                         Id = s.Id,
@@ -56,7 +57,7 @@ namespace StudentManagement.Controllers
         {
             if (!ModelState.IsValid)
                 return;
-            Students = HelperFunctions.AddStudent(Students, student);
+            HelperFunctions.Students = HelperFunctions.AddStudent(HelperFunctions.Students, student);
         }
 
         // PUT api/<controller>/5
