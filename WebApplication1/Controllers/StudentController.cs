@@ -50,17 +50,17 @@ namespace UI.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://localhost:44388/api/");
+                //client.BaseAddress = new Uri("https://localhost:44388/api/Students");
 
                 //HTTP POST
-                var postTask = await client.PostAsJsonAsync<Student>("Students", student);
-               // postTask.Wait();
+                var postTask = await client.PostAsJsonAsync<Student>("http://localhost:63389/api/Students", student);
+                // postTask.Wait();
 
                 //var result = postTask.Result;
-                //if (result.IsSuccessStatusCode)
-                //{
+                if (postTask.IsSuccessStatusCode)
+                {
                     return RedirectToAction("Index");
-                //}
+                }
             }
 
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
